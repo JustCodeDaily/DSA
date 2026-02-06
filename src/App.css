@@ -2,12 +2,15 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .app-body {
   display: flex;
   flex: 1;
   overflow: hidden;
+  height: calc(100vh - 72px);
 }
 
 .home {
@@ -26,6 +29,10 @@
 
 /* Mobile overlay when sidebar is open */
 @media (max-width: 768px) {
+  .app-body {
+    height: calc(100vh - 60px);
+  }
+  
   .app-body.sidebar-open::before {
     content: '';
     position: fixed;

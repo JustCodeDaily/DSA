@@ -5,13 +5,12 @@
   border-left: 1px solid #e9ecef;
   height: 100%;
   overflow-y: auto;
-  position: sticky;
-  top: 0;
+  flex-shrink: 0;
 }
 
 .toc-nav {
   position: sticky;
-  top: 2rem;
+  top: 1rem;
 }
 
 .toc-title {
@@ -44,7 +43,7 @@
   border-left: 2px solid transparent;
   padding-left: 0.75rem;
   margin-left: -0.75rem;
-  transition: all 0.2s;
+  transition: all 0.15s ease;
 }
 
 .toc-list li a:hover {

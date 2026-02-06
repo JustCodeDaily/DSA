@@ -6,6 +6,8 @@
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  flex-shrink: 0;
+  height: 100%;
 }
 
 .sidebar.collapsed {

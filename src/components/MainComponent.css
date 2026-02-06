@@ -3,12 +3,15 @@
   display: flex;
   overflow: hidden;
   background: white;
+  height: 100%;
 }
 
 .main-component {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   min-width: 0;
+  height: 100%;
 }
 
 .main-content {
@@ -19,6 +22,8 @@
 
 .right-sidebar-container {
   flex-shrink: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
 /* Mobile Responsiveness */

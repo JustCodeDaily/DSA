@@ -5,31 +5,49 @@ function RightSidebar({ sections = [] }) {
   const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
+    const mainComponent = document.querySelector('.main-component');
+    if (!mainComponent) return;
+
     const handleScroll = () => {
+      const scrollPosition = mainComponent.scrollTop;
       const headings = sections.map(section => 
         document.getElementById(section.id)
       ).filter(Boolean);
 
-      const scrollPosition = window.scrollY + 100;
-
+      // Find the current section based on scroll position
+      let currentSection = sections[0]?.id || '';
+      
       for (let i = headings.length - 1; i >= 0; i--) {
-        if (headings[i].offsetTop <= scrollPosition) {
-          setActiveSection(sections[i].id);
+        const heading = headings[i];
+        const rect = heading.getBoundingClientRect();
+        const mainRect = mainComponent.getBoundingClientRect();
+        
+        // Calculate position relative to the scrollable container
+        if (rect.top - mainRect.top <= 100) {
+          currentSection = sections[i].id;
           break;
         }
       }
+
+      setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll();
+    mainComponent.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
     
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => mainComponent.removeEventListener('scroll', handleScroll);
   }, [sections]);
 
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const mainComponent = document.querySelector('.main-component');
+    
+    if (element && mainComponent) {
+      const elementTop = element.offsetTop;
+      mainComponent.scrollTo({
+        top: elementTop - 80,
+        behavior: 'smooth'
+      });
     }
   };
 
