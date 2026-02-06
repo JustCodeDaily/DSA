@@ -1,15 +1,8 @@
 import { Sandpack } from '@codesandbox/sandpack-react';
-import RightSidebar from '../components/RightSidebar';
+import { levelUp } from '@codesandbox/sandpack-themes';
 import './BlogPost.css';
 
 function ArrayMethodsBlog() {
-  const sections = [
-    { id: 'introduction', title: 'Introduction' },
-    { id: 'map-filter-reduce', title: 'Map, Filter, and Reduce' },
-    { id: 'find-findindex', title: 'Find and FindIndex' },
-    { id: 'key-takeaways', title: 'Key Takeaways' }
-  ];
-
   return (
     <>
       <article className="blog-post">
@@ -35,7 +28,7 @@ function ArrayMethodsBlog() {
           
           <Sandpack
             template="vanilla"
-            theme="dark"
+            theme={levelUp}
             files={{
               '/index.js': {
                 code: `// Map: Transform each element
@@ -61,9 +54,13 @@ console.log('Chained result:', result);`
               }
             }}
             options={{
-              showNavigator: false,
+              showNavigator: true,
+              showTabs: true,
               showLineNumbers: true,
-              editorHeight: 400
+              showInlineErrors: true,
+              editorHeight: 400,
+              showConsole: true,
+              showConsoleButton: true
             }}
           />
         </section>
@@ -77,7 +74,7 @@ console.log('Chained result:', result);`
           
           <Sandpack
             template="vanilla"
-            theme="dark"
+            theme={levelUp}
             files={{
               '/index.js': {
                 code: `const users = [
@@ -104,9 +101,13 @@ console.log('All adults:', allAdults);`
               }
             }}
             options={{
-              showNavigator: false,
+              showNavigator: true,
+              showTabs: true,
               showLineNumbers: true,
-              editorHeight: 350
+              showInlineErrors: true,
+              editorHeight: 350,
+              showConsole: true,
+              showConsoleButton: true
             }}
           />
         </section>

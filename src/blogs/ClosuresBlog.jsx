@@ -1,16 +1,8 @@
 import { Sandpack } from '@codesandbox/sandpack-react';
-import RightSidebar from '../components/RightSidebar';
+import { levelUp } from '@codesandbox/sandpack-themes';
 import './BlogPost.css';
 
 function ClosuresBlog() {
-  const sections = [
-    { id: 'what-is-closure', title: 'What is a Closure?' },
-    { id: 'basic-example', title: 'Basic Closure Example' },
-    { id: 'private-methods', title: 'Practical Use Case: Private Methods' },
-    { id: 'common-pitfall', title: 'Common Pitfall: Closures in Loops' },
-    { id: 'key-takeaways', title: 'Key Takeaways' }
-  ];
-
   return (
     <>
       <article className="blog-post">
@@ -35,7 +27,7 @@ function ClosuresBlog() {
           
           <Sandpack
             template="vanilla"
-            theme="dark"
+            theme={levelUp}
             files={{
               '/index.js': {
                 code: `// Basic closure
@@ -63,9 +55,13 @@ console.log(counter1()); // 4`
               }
             }}
             options={{
-              showNavigator: false,
+              showNavigator: true,
+              showTabs: true,
               showLineNumbers: true,
-              editorHeight: 400
+              showInlineErrors: true,
+              editorHeight: 400,
+              showConsole: true,
+              showConsoleButton: true
             }}
           />
         </section>
@@ -79,7 +75,7 @@ console.log(counter1()); // 4`
           
           <Sandpack
             template="vanilla"
-            theme="dark"
+            theme={levelUp}
             files={{
               '/index.js': {
                 code: `function createBankAccount(initialBalance) {
@@ -120,9 +116,13 @@ console.log('Direct access:', myAccount.balance); // undefined`
               }
             }}
             options={{
-              showNavigator: false,
+              showNavigator: true,
+              showTabs: true,
               showLineNumbers: true,
-              editorHeight: 450
+              showInlineErrors: true,
+              editorHeight: 450,
+              showConsole: true,
+              showConsoleButton: true
             }}
           />
         </section>
@@ -136,7 +136,7 @@ console.log('Direct access:', myAccount.balance); // undefined`
           
           <Sandpack
             template="vanilla"
-            theme="dark"
+            theme={levelUp}
             files={{
               '/index.js': {
                 code: `// Problem: Using var in loops
@@ -167,9 +167,13 @@ for (var k = 0; k < 3; k++) {
               }
             }}
             options={{
-              showNavigator: false,
+              showNavigator: true,
+              showTabs: true,
               showLineNumbers: true,
-              editorHeight: 450
+              showInlineErrors: true,
+              editorHeight: 450,
+              showConsole: true,
+              showConsoleButton: true
             }}
           />
         </section>
