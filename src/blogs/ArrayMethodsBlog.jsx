@@ -1,5 +1,4 @@
-import { SandpackProvider, SandpackLayout, SandpackCodeEditor, SandpackPreview } from '@codesandbox/sandpack-react';
-import { levelUp } from '@codesandbox/sandpack-themes';
+import CodePlayground from '../components/CodePlayground';
 import './BlogPost.css';
 
 function ArrayMethodsBlog() {
@@ -26,12 +25,8 @@ function ArrayMethodsBlog() {
             the original array.
           </p>
           
-          <div className="sandpack-wrapper">
-            <SandpackProvider
-              template="vanilla"
-              theme={levelUp}
-              files={{
-                '/index.js': `// Map: Transform each element
+          <CodePlayground
+            code={`// Map: Transform each element
 const numbers = [1, 2, 3, 4, 5];
 const doubled = numbers.map(num => num * 2);
 console.log('Doubled:', doubled);
@@ -50,22 +45,9 @@ const result = numbers
   .map(num => num * 3)
   .reduce((acc, num) => acc + num, 0);
   
-console.log('Chained result:', result);`
-              }}
-              options={{
-                showNavigator: false,
-                showTabs: true,
-                showLineNumbers: true,
-                showInlineErrors: true,
-                editorHeight: 400
-              }}
-            >
-              <SandpackLayout>
-                <SandpackCodeEditor />
-                <SandpackPreview showOpenInCodeSandbox={false} />
-              </SandpackLayout>
-            </SandpackProvider>
-          </div>
+console.log('Chained result:', result);`}
+            height={420}
+          />
         </section>
 
         <section id="find-findindex">
@@ -75,12 +57,8 @@ console.log('Chained result:', result);`
             the first element that matches, while <code>findIndex()</code> returns its position.
           </p>
           
-          <div className="sandpack-wrapper">
-            <SandpackProvider
-              template="vanilla"
-              theme={levelUp}
-              files={{
-                '/index.js': `const users = [
+          <CodePlayground
+            code={`const users = [
   { id: 1, name: 'Alice', age: 28 },
   { id: 2, name: 'Bob', age: 35 },
   { id: 3, name: 'Charlie', age: 42 }
@@ -100,22 +78,9 @@ console.log('Has Alice:', hasAlice);
 
 // Check if all match condition
 const allAdults = users.every(u => u.age >= 18);
-console.log('All adults:', allAdults);`
-              }}
-              options={{
-                showNavigator: false,
-                showTabs: true,
-                showLineNumbers: true,
-                showInlineErrors: true,
-                editorHeight: 350
-              }}
-            >
-              <SandpackLayout>
-                <SandpackCodeEditor />
-                <SandpackPreview showOpenInCodeSandbox={false} />
-              </SandpackLayout>
-            </SandpackProvider>
-          </div>
+console.log('All adults:', allAdults);`}
+            height={380}
+          />
         </section>
 
         <section id="key-takeaways">

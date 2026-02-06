@@ -1,0 +1,246 @@
+.code-playground {
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+}
+
+[data-theme='dark'] .code-playground {
+  border-color: #3a3a3a;
+}
+
+/* Hide default Sandpack tabs and file names */
+.code-playground .sp-tabs,
+.code-playground .sp-tab-button {
+  display: none !important;
+}
+
+/* Custom editor styling */
+.code-playground .sp-code-editor {
+  background: #1e1e1e;
+}
+
+.code-playground .sp-cm {
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Layout adjustments */
+.code-playground .sp-layout {
+  border: none;
+  gap: 0;
+}
+
+.code-playground .sp-stack {
+  height: 100%;
+}
+
+/* Preview container with tabs */
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8f9fa;
+}
+
+[data-theme='dark'] .preview-container {
+  background: #1a1a1a;
+}
+
+/* Custom tabs */
+.preview-tabs {
+  display: flex;
+  align-items: center;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3a3a3a;
+  padding: 0;
+  height: 40px;
+}
+
+.preview-tab {
+  padding: 0.5rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+  height: 100%;
+}
+
+.preview-tab:hover {
+  color: #e4e4e4;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.preview-tab.active {
+  color: #fbbf24;
+  border-bottom-color: #fbbf24;
+}
+
+.preview-actions {
+  margin-left: auto;
+  padding-right: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.refresh-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e4e4e4;
+}
+
+/* Preview content */
+.preview-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.preview-content .sp-preview-container {
+  height: 100%;
+}
+
+.preview-content .sp-preview-iframe {
+  border: none;
+  background: white;
+}
+
+[data-theme='dark'] .preview-content .sp-preview-iframe {
+  background: #1a1a1a;
+}
+
+/* Console panel */
+.console-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #1e1e1e;
+  color: #e4e4e4;
+}
+
+.console-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 0.75rem;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+.console-clear-btn {
+  padding: 0.25rem 0.75rem;
+  background: transparent;
+  border: 1px solid #4a4a4a;
+  color: #9ca3af;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.console-clear-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e4e4e4;
+  border-color: #5a5a5a;
+}
+
+.console-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.console-empty {
+  color: #6c757d;
+  font-style: italic;
+  padding: 0.5rem 0;
+}
+
+.console-log {
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.25rem;
+  border-left: 3px solid transparent;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.console-log-log {
+  color: #e4e4e4;
+  border-left-color: #3b82f6;
+}
+
+.console-log-warn {
+  color: #fbbf24;
+  border-left-color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.console-log-error {
+  color: #ef4444;
+  border-left-color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.console-log-info {
+  color: #3b82f6;
+  border-left-color: #3b82f6;
+}
+
+.console-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.console-content::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.console-content::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 4px;
+}
+
+.console-content::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .code-playground .sp-layout {
+    flex-direction: column;
+  }
+  
+  .preview-tab {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .code-playground .sp-code-editor {
+    height: 300px !important;
+  }
+  
+  .preview-content {
+    min-height: 300px;
+  }
+}
