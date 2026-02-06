@@ -1,6 +1,13 @@
-import { SandpackProvider, SandpackLayout, SandpackCodeEditor, SandpackPreview, useSandpack, useSandpackConsole } from '@codesandbox/sandpack-react';
+import { 
+  SandpackProvider, 
+  SandpackCodeEditor, 
+  SandpackPreview,
+  useSandpack,
+  useSandpackConsole,
+  UnstyledOpenInCodeSandboxButton
+} from '@codesandbox/sandpack-react';
 import { levelUp } from '@codesandbox/sandpack-themes';
-import { useState, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import './CodePlayground.css';
 
 function ConsolePanel() {
@@ -8,11 +15,6 @@ function ConsolePanel() {
 
   return (
     <div className="console-panel">
-      <div className="console-header">
-        <button onClick={reset} className="console-clear-btn" title="Clear console">
-          Clear
-        </button>
-      </div>
       <div className="console-content">
         {logs.length === 0 ? (
           <div className="console-empty">Console output will appear here...</div>
@@ -33,8 +35,40 @@ function ConsolePanel() {
   );
 }
 
+function EditorHeader({ fileName, onReset }) {
+  return (
+    <div className="editor-header">
+      <span className="file-name">{fileName}</span>
+      <div className="editor-actions">
+        <button onClick={onReset} className="action-btn" title="Reset code">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+            <path d="M21 3v5h-5"/>
+            <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+            <path d="M3 21v-5h5"/>
+          </svg>
+          Reset
+        </button>
+        <UnstyledOpenInCodeSandboxButton className="action-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          CodeSandbox
+        </UnstyledOpenInCodeSandboxButton>
+      </div>
+    </div>
+  );
+}
+
 function PreviewTabs() {
   const [activeTab, setActiveTab] = useState('result');
+  const { sandpack } = useSandpack();
+
+  const handleRefresh = () => {
+    sandpack.resetFile('/index.js');
+  };
 
   return (
     <div className="preview-container">
@@ -52,7 +86,7 @@ function PreviewTabs() {
           Console
         </button>
         <div className="preview-actions">
-          <button className="refresh-btn" title="Refresh">
+          <button className="refresh-btn" onClick={handleRefresh} title="Refresh">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
             </svg>
@@ -61,7 +95,11 @@ function PreviewTabs() {
       </div>
       <div className="preview-content">
         {activeTab === 'result' ? (
-          <SandpackPreview showOpenInCodeSandbox={false} showRefreshButton={false} />
+          <SandpackPreview 
+            showOpenInCodeSandbox={false} 
+            showRefreshButton={false}
+            showNavigator={false}
+          />
         ) : (
           <ConsolePanel />
         )}
@@ -70,37 +108,110 @@ function PreviewTabs() {
   );
 }
 
-function CodePlayground({ code, template = 'vanilla', height = 400 }) {
+function ResizableLayout({ children, initialWidth = 50 }) {
+  const [leftWidth, setLeftWidth] = useState(initialWidth);
+  const [isDragging, setIsDragging] = useState(false);
+  const containerRef = useRef(null);
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      if (!isDragging || !containerRef.current) return;
+      
+      const container = containerRef.current;
+      const containerRect = container.getBoundingClientRect();
+      const newLeftWidth = ((e.clientX - containerRect.left) / containerRect.width) * 100;
+      
+      // Constrain between 30% and 70%
+      if (newLeftWidth >= 30 && newLeftWidth <= 70) {
+        setLeftWidth(newLeftWidth);
+      }
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
   return (
-    <div className="code-playground">
+    <div 
+      className={`resizable-layout ${isDragging ? 'resizing' : ''}`} 
+      ref={containerRef}
+    >
+      <div className="resizable-left" style={{ width: `${leftWidth}%` }}>
+        {children[0]}
+      </div>
+      <div 
+        className="resize-handle"
+        onMouseDown={handleMouseDown}
+      >
+        <div className="resize-handle-bar" />
+      </div>
+      <div className="resizable-right" style={{ width: `${100 - leftWidth}%` }}>
+        {children[1]}
+      </div>
+    </div>
+  );
+}
+
+function CodePlayground({ code, template = 'vanilla', height = 400, fileName = 'index.js' }) {
+  const [initialCode] = useState(code);
+  const [currentCode, setCurrentCode] = useState(code);
+
+  const handleReset = () => {
+    setCurrentCode(initialCode);
+    // Force re-render by updating the key
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
+  };
+
+  return (
+    <div className="code-playground" style={{ height: `${height}px` }}>
       <SandpackProvider
         template={template}
         theme={levelUp}
         files={{
-          '/index.js': code
+          '/index.js': currentCode
         }}
         options={{
           showNavigator: false,
           showTabs: false,
           showLineNumbers: true,
           showInlineErrors: true,
-          editorHeight: height,
           autorun: true,
-          autoReload: true
-        }}
-        customSetup={{
-          dependencies: {}
+          autoReload: true,
+          recompileMode: 'delayed',
+          recompileDelay: 300
         }}
       >
-        <SandpackLayout>
-          <SandpackCodeEditor 
-            showTabs={false}
-            showLineNumbers={true}
-            showInlineErrors={true}
-            wrapContent={true}
-          />
+        <ResizableLayout>
+          <div className="editor-section">
+            <EditorHeader fileName={fileName} onReset={handleReset} />
+            <SandpackCodeEditor 
+              showTabs={false}
+              showLineNumbers={true}
+              showInlineErrors={true}
+              wrapContent={false}
+              style={{ height: `calc(100% - 40px)` }}
+            />
+          </div>
           <PreviewTabs />
-        </SandpackLayout>
+        </ResizableLayout>
       </SandpackProvider>
     </div>
   );

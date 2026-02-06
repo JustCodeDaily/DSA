@@ -4,13 +4,127 @@
   overflow: hidden;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 1px solid #e9ecef;
+  position: relative;
 }
 
 [data-theme='dark'] .code-playground {
   border-color: #3a3a3a;
 }
 
-/* Hide default Sandpack tabs and file names */
+/* Resizable layout */
+.resizable-layout {
+  display: flex;
+  height: 100%;
+  position: relative;
+  user-select: none;
+}
+
+.resizable-layout.resizing {
+  cursor: col-resize;
+}
+
+.resizable-layout.resizing * {
+  pointer-events: none;
+}
+
+.resizable-left,
+.resizable-right {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.resize-handle {
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  background: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  position: relative;
+  flex-shrink: 0;
+}
+
+[data-theme='dark'] .resize-handle {
+  background: #2d2d2d;
+}
+
+.resize-handle:hover {
+  background: #667eea;
+}
+
+.resize-handle:hover .resize-handle-bar {
+  background: white;
+}
+
+.resize-handle-bar {
+  width: 2px;
+  height: 40px;
+  background: #9ca3af;
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+
+/* Editor section */
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #1e1e1e;
+}
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: #2d2d2d;
+  border-bottom: 1px solid #3a3a3a;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.file-name {
+  color: #e4e4e4;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.75rem;
+  background: transparent;
+  border: 1px solid #4a4a4a;
+  color: #9ca3af;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e4e4e4;
+  border-color: #667eea;
+}
+
+.action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Hide default Sandpack tabs */
 .code-playground .sp-tabs,
 .code-playground .sp-tab-button {
   display: none !important;
@@ -19,22 +133,22 @@
 /* Custom editor styling */
 .code-playground .sp-code-editor {
   background: #1e1e1e;
+  height: 100%;
 }
 
 .code-playground .sp-cm {
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
   font-size: 14px !important;
   line-height: 1.6 !important;
+  height: 100% !important;
 }
 
-/* Layout adjustments */
-.code-playground .sp-layout {
-  border: none;
-  gap: 0;
+.code-playground .sp-wrapper {
+  height: 100% !important;
 }
 
 .code-playground .sp-stack {
-  height: 100%;
+  height: 100% !important;
 }
 
 /* Preview container with tabs */
@@ -57,6 +171,7 @@
   border-bottom: 1px solid #3a3a3a;
   padding: 0;
   height: 40px;
+  flex-shrink: 0;
 }
 
 .preview-tab {
@@ -114,15 +229,18 @@
   flex: 1;
   overflow: hidden;
   position: relative;
+  height: calc(100% - 40px);
 }
 
 .preview-content .sp-preview-container {
-  height: 100%;
+  height: 100% !important;
 }
 
 .preview-content .sp-preview-iframe {
   border: none;
   background: white;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 [data-theme='dark'] .preview-content .sp-preview-iframe {
@@ -138,31 +256,6 @@
   color: #e4e4e4;
 }
 
-.console-header {
-  display: flex;
-  justify-content: flex-end;
-  padding: 0.5rem 0.75rem;
-  background: #2d2d2d;
-  border-bottom: 1px solid #3a3a3a;
-}
-
-.console-clear-btn {
-  padding: 0.25rem 0.75rem;
-  background: transparent;
-  border: 1px solid #4a4a4a;
-  color: #9ca3af;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  transition: all 0.2s;
-}
-
-.console-clear-btn:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #e4e4e4;
-  border-color: #5a5a5a;
-}
-
 .console-content {
   flex: 1;
   overflow-y: auto;
@@ -170,6 +263,7 @@
   font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
   font-size: 13px;
   line-height: 1.5;
+  height: 100%;
 }
 
 .console-empty {
@@ -227,8 +321,18 @@
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-  .code-playground .sp-layout {
+  .resizable-layout {
     flex-direction: column;
+  }
+  
+  .resize-handle {
+    display: none;
+  }
+  
+  .resizable-left,
+  .resizable-right {
+    width: 100% !important;
+    height: 50% !important;
   }
   
   .preview-tab {
@@ -236,11 +340,13 @@
     font-size: 0.85rem;
   }
   
-  .code-playground .sp-code-editor {
-    height: 300px !important;
+  .action-btn {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
   }
   
-  .preview-content {
-    min-height: 300px;
+  .action-btn svg {
+    width: 12px;
+    height: 12px;
   }
 }
