@@ -123,7 +123,6 @@ console.log('All adults:', allAdults);`
           </ul>
         </section>
       </article>
-      <RightSidebar sections={sections} />
     </>
   );
 }

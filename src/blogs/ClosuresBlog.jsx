@@ -185,7 +185,6 @@ for (var k = 0; k < 3; k++) {
           </ul>
         </section>
       </article>
-      <RightSidebar sections={sections} />
     </>
   );
 }

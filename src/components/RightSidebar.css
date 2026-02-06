@@ -1,12 +1,12 @@
 .right-sidebar {
   width: 260px;
   padding: 2rem 1.5rem;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow-y: auto;
   background: #f8f9fa;
   border-left: 1px solid #e9ecef;
+  height: 100%;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
 }
 
 .toc-nav {
@@ -58,9 +58,19 @@
   font-weight: 500;
 }
 
-/* Hide on mobile and tablet */
-@media (max-width: 1024px) {
-  .right-sidebar {
-    display: none;
-  }
+.right-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.right-sidebar::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb {
+  background: #dee2e6;
+  border-radius: 3px;
+}
+
+.right-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ced4da;
 }

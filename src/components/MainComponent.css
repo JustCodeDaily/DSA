@@ -1,25 +1,37 @@
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  background: white;
+}
+
 .main-component {
   flex: 1;
   overflow-y: auto;
-  background: white;
-  display: flex;
+  min-width: 0;
 }
 
 .main-content {
-  flex: 1;
   max-width: 900px;
-  margin: 0 auto;
   padding: 2rem;
-  width: 100%;
+  margin: 0 auto;
 }
 
-.main-component.has-right-sidebar .main-content {
-  margin: 0;
-  margin-left: auto;
-  margin-right: 0;
+.right-sidebar-container {
+  flex-shrink: 0;
 }
 
 /* Mobile Responsiveness */
+@media (max-width: 1024px) {
+  .right-sidebar-container {
+    display: none;
+  }
+  
+  .main-content {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 768px) {
   .main-content {
     padding: 1.5rem 1rem;

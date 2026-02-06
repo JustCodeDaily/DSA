@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import MainComponent from './components/MainComponent';
+import RightSidebar from './components/RightSidebar';
 import ArrayMethodsBlog from './blogs/ArrayMethodsBlog';
 import ClosuresBlog from './blogs/ClosuresBlog';
 import { useState } from 'react';
@@ -9,6 +10,21 @@ import './App.css';
 
 function App() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+
+  const arrayMethodsSections = [
+    { id: 'introduction', title: 'Introduction' },
+    { id: 'map-filter-reduce', title: 'Map, Filter, and Reduce' },
+    { id: 'find-findindex', title: 'Find and FindIndex' },
+    { id: 'key-takeaways', title: 'Key Takeaways' }
+  ];
+
+  const closuresSections = [
+    { id: 'what-is-closure', title: 'What is a Closure?' },
+    { id: 'basic-example', title: 'Basic Closure Example' },
+    { id: 'private-methods', title: 'Practical Use Case: Private Methods' },
+    { id: 'common-pitfall', title: 'Common Pitfall: Closures in Loops' },
+    { id: 'key-takeaways', title: 'Key Takeaways' }
+  ];
 
   return (
     <Router>
@@ -29,12 +45,18 @@ function App() {
               </MainComponent>
             } />
             <Route path="/array-methods" element={
-              <MainComponent isCollapsed={isSidebarCollapsed} rightSidebar={true}>
+              <MainComponent 
+                isCollapsed={isSidebarCollapsed} 
+                rightSidebar={<RightSidebar sections={arrayMethodsSections} />}
+              >
                 <ArrayMethodsBlog />
               </MainComponent>
             } />
             <Route path="/closures" element={
-              <MainComponent isCollapsed={isSidebarCollapsed} rightSidebar={true}>
+              <MainComponent 
+                isCollapsed={isSidebarCollapsed}
+                rightSidebar={<RightSidebar sections={closuresSections} />}
+              >
                 <ClosuresBlog />
               </MainComponent>
             } />
