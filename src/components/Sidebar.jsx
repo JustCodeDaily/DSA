@@ -5,8 +5,9 @@ import './Sidebar.css';
 function Sidebar({ isCollapsed, onToggle }) {
   const location = useLocation();
   const [expandedSections, setExpandedSections] = useState({
-    basics: true,
-    advanced: false
+    gettingStarted: true,
+    guides: false,
+    advancedGuides: false
   });
 
   const toggleSection = (section) => {
@@ -26,49 +27,97 @@ function Sidebar({ isCollapsed, onToggle }) {
       
       {!isCollapsed && (
         <nav className="sidebar-nav">
+          {/* Introduction - No dropdown */}
+          <Link to="/" className={`nav-item ${isActive('/') ? 'active' : ''}`}>
+            Introduction
+          </Link>
+
+          {/* Getting Started - Expandable */}
           <div className="section">
             <button 
-              className="section-header"
-              onClick={() => toggleSection('basics')}
+              className={`section-header ${expandedSections.gettingStarted ? 'expanded' : ''}`}
+              onClick={() => toggleSection('gettingStarted')}
             >
-              <span>JavaScript Basics</span>
-              <span className="arrow">{expandedSections.basics ? '▼' : '▶'}</span>
+              <span>Getting Started</span>
+              <span className="arrow">{expandedSections.gettingStarted ? '∨' : '›'}</span>
             </button>
-            {expandedSections.basics && (
-              <ul className="section-links">
-                <li>
-                  <Link 
-                    to="/array-methods" 
-                    className={isActive('/array-methods') ? 'active' : ''}
-                  >
-                    Array Methods
-                  </Link>
-                </li>
-              </ul>
+            {expandedSections.gettingStarted && (
+              <div className="section-content">
+                <Link 
+                  to="/installation" 
+                  className={`sub-item ${isActive('/installation') ? 'active' : ''}`}
+                >
+                  Installation
+                </Link>
+                <Link 
+                  to="/configuration" 
+                  className={`sub-item ${isActive('/configuration') ? 'active' : ''}`}
+                >
+                  Configuration
+                </Link>
+                <Link 
+                  to="/playground" 
+                  className={`sub-item ${isActive('/playground') ? 'active' : ''}`}
+                >
+                  Playground
+                </Link>
+                <Link 
+                  to="/typescript-support" 
+                  className={`sub-item ${isActive('/typescript-support') ? 'active' : ''}`}
+                >
+                  TypeScript Support
+                </Link>
+              </div>
             )}
           </div>
 
+          {/* Guides - Expandable */}
           <div className="section">
             <button 
-              className="section-header"
-              onClick={() => toggleSection('advanced')}
+              className={`section-header ${expandedSections.guides ? 'expanded' : ''}`}
+              onClick={() => toggleSection('guides')}
             >
-              <span>Advanced Concepts</span>
-              <span className="arrow">{expandedSections.advanced ? '▼' : '▶'}</span>
+              <span>Guides</span>
+              <span className="arrow">{expandedSections.guides ? '∨' : '›'}</span>
             </button>
-            {expandedSections.advanced && (
-              <ul className="section-links">
-                <li>
-                  <Link 
-                    to="/closures" 
-                    className={isActive('/closures') ? 'active' : ''}
-                  >
-                    Closures
-                  </Link>
-                </li>
-              </ul>
+            {expandedSections.guides && (
+              <div className="section-content">
+                <Link 
+                  to="/array-methods" 
+                  className={`sub-item ${isActive('/array-methods') ? 'active' : ''}`}
+                >
+                  Array Methods
+                </Link>
+              </div>
             )}
           </div>
+
+          {/* Advanced Guides - Expandable */}
+          <div className="section">
+            <button 
+              className={`section-header ${expandedSections.advancedGuides ? 'expanded' : ''}`}
+              onClick={() => toggleSection('advancedGuides')}
+            >
+              <span>Advanced Guides</span>
+              <span className="arrow">{expandedSections.advancedGuides ? '∨' : '›'}</span>
+            </button>
+            {expandedSections.advancedGuides && (
+              <div className="section-content">
+                <Link 
+                  to="/closures" 
+                  className={`sub-item ${isActive('/closures') ? 'active' : ''}`}
+                >
+                  Closures
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Upgrading - No dropdown */}
+          <button className="section-header no-dropdown">
+            <span>Upgrading</span>
+            <span className="arrow">›</span>
+          </button>
         </nav>
       )}
     </aside>
