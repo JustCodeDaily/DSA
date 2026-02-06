@@ -1,34 +1,44 @@
 import { Sandpack } from '@codesandbox/sandpack-react';
+import RightSidebar from '../components/RightSidebar';
 import './BlogPost.css';
 
 function ClosuresBlog() {
+  const sections = [
+    { id: 'what-is-closure', title: 'What is a Closure?' },
+    { id: 'basic-example', title: 'Basic Closure Example' },
+    { id: 'private-methods', title: 'Practical Use Case: Private Methods' },
+    { id: 'common-pitfall', title: 'Common Pitfall: Closures in Loops' },
+    { id: 'key-takeaways', title: 'Key Takeaways' }
+  ];
+
   return (
-    <article className="blog-post">
-      <h1>Understanding JavaScript Closures</h1>
-      <p className="post-meta">Master one of JavaScript's most powerful features</p>
+    <>
+      <article className="blog-post">
+        <h1>Understanding JavaScript Closures</h1>
+        <p className="post-meta">Master one of JavaScript's most powerful features</p>
 
-      <section>
-        <h2>What is a Closure?</h2>
-        <p>
-          A closure is a function that has access to variables in its outer (enclosing) scope, 
-          even after the outer function has returned. This creates a private scope that persists 
-          between function calls.
-        </p>
-      </section>
+        <section id="what-is-closure">
+          <h2>What is a Closure?</h2>
+          <p>
+            A closure is a function that has access to variables in its outer (enclosing) scope, 
+            even after the outer function has returned. This creates a private scope that persists 
+            between function calls.
+          </p>
+        </section>
 
-      <section>
-        <h2>Basic Closure Example</h2>
-        <p>
-          The inner function maintains access to the outer function's variables, creating 
-          a persistent private state.
-        </p>
-        
-        <Sandpack
-          template="vanilla"
-          theme="dark"
-          files={{
-            '/index.js': {
-              code: `// Basic closure
+        <section id="basic-example">
+          <h2>Basic Closure Example</h2>
+          <p>
+            The inner function maintains access to the outer function's variables, creating 
+            a persistent private state.
+          </p>
+          
+          <Sandpack
+            template="vanilla"
+            theme="dark"
+            files={{
+              '/index.js': {
+                code: `// Basic closure
 function createCounter() {
   let count = 0; // Private variable
   
@@ -50,29 +60,29 @@ console.log(counter2()); // 2
 
 // Original counter is unaffected
 console.log(counter1()); // 4`
-            }
-          }}
-          options={{
-            showNavigator: false,
-            showLineNumbers: true,
-            editorHeight: 400
-          }}
-        />
-      </section>
+              }
+            }}
+            options={{
+              showNavigator: false,
+              showLineNumbers: true,
+              editorHeight: 400
+            }}
+          />
+        </section>
 
-      <section>
-        <h2>Practical Use Case: Private Methods</h2>
-        <p>
-          Closures enable data encapsulation by creating private methods and variables 
-          that can't be accessed directly from outside.
-        </p>
-        
-        <Sandpack
-          template="vanilla"
-          theme="dark"
-          files={{
-            '/index.js': {
-              code: `function createBankAccount(initialBalance) {
+        <section id="private-methods">
+          <h2>Practical Use Case: Private Methods</h2>
+          <p>
+            Closures enable data encapsulation by creating private methods and variables 
+            that can't be accessed directly from outside.
+          </p>
+          
+          <Sandpack
+            template="vanilla"
+            theme="dark"
+            files={{
+              '/index.js': {
+                code: `function createBankAccount(initialBalance) {
   let balance = initialBalance; // Private
   
   // Public API
@@ -107,29 +117,29 @@ console.log(myAccount.getBalance());
 
 // Cannot access balance directly
 console.log('Direct access:', myAccount.balance); // undefined`
-            }
-          }}
-          options={{
-            showNavigator: false,
-            showLineNumbers: true,
-            editorHeight: 450
-          }}
-        />
-      </section>
+              }
+            }}
+            options={{
+              showNavigator: false,
+              showLineNumbers: true,
+              editorHeight: 450
+            }}
+          />
+        </section>
 
-      <section>
-        <h2>Common Pitfall: Closures in Loops</h2>
-        <p>
-          A classic gotcha when using closures inside loops. Understanding this 
-          helps avoid unexpected behavior.
-        </p>
-        
-        <Sandpack
-          template="vanilla"
-          theme="dark"
-          files={{
-            '/index.js': {
-              code: `// Problem: Using var in loops
+        <section id="common-pitfall">
+          <h2>Common Pitfall: Closures in Loops</h2>
+          <p>
+            A classic gotcha when using closures inside loops. Understanding this 
+            helps avoid unexpected behavior.
+          </p>
+          
+          <Sandpack
+            template="vanilla"
+            theme="dark"
+            files={{
+              '/index.js': {
+                code: `// Problem: Using var in loops
 console.log('--- Problem with var ---');
 for (var i = 0; i < 3; i++) {
   setTimeout(function() {
@@ -154,27 +164,29 @@ for (var k = 0; k < 3; k++) {
     }, 300);
   })(k);
 }`
-            }
-          }}
-          options={{
-            showNavigator: false,
-            showLineNumbers: true,
-            editorHeight: 450
-          }}
-        />
-      </section>
+              }
+            }}
+            options={{
+              showNavigator: false,
+              showLineNumbers: true,
+              editorHeight: 450
+            }}
+          />
+        </section>
 
-      <section>
-        <h2>Key Takeaways</h2>
-        <ul>
-          <li>Closures allow functions to access outer scope variables</li>
-          <li>They create private variables and methods (encapsulation)</li>
-          <li>Each closure has its own independent scope</li>
-          <li>Use <code>let</code> instead of <code>var</code> in loops to avoid closure pitfalls</li>
-          <li>Closures are fundamental to many JavaScript patterns (modules, callbacks, etc.)</li>
-        </ul>
-      </section>
-    </article>
+        <section id="key-takeaways">
+          <h2>Key Takeaways</h2>
+          <ul>
+            <li>Closures allow functions to access outer scope variables</li>
+            <li>They create private variables and methods (encapsulation)</li>
+            <li>Each closure has its own independent scope</li>
+            <li>Use <code>let</code> instead of <code>var</code> in loops to avoid closure pitfalls</li>
+            <li>Closures are fundamental to many JavaScript patterns (modules, callbacks, etc.)</li>
+          </ul>
+        </section>
+      </article>
+      <RightSidebar sections={sections} />
+    </>
   );
 }
 

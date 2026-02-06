@@ -19,6 +19,7 @@
 
 .blog-post section {
   margin-bottom: 2.5rem;
+  scroll-margin-top: 2rem;
 }
 
 .blog-post h2 {
@@ -72,4 +73,37 @@
 
 .blog-post section:last-child {
   margin-bottom: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .blog-post h1 {
+    font-size: 2rem;
+  }
+  
+  .post-meta {
+    font-size: 1rem;
+  }
+  
+  .blog-post h2 {
+    font-size: 1.5rem;
+  }
+  
+  .blog-post p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .blog-post h1 {
+    font-size: 1.6rem;
+  }
+  
+  .blog-post h2 {
+    font-size: 1.3rem;
+  }
+  
+  .blog-post p {
+    font-size: 0.95rem;
+  }
 }
