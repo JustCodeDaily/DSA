@@ -15,3 +15,32 @@
   font-size: 0.95rem;
   opacity: 0.9;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .header-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .header-content p {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem;
+  }
+  
+  .header-content h1 {
+    font-size: 1.3rem;
+  }
+  
+  .header-content p {
+    display: none;
+  }
+}

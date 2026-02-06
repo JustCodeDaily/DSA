@@ -23,3 +23,21 @@
   color: #7f8c8d;
   font-size: 1.1rem;
 }
+
+/* Mobile overlay when sidebar is open */
+@media (max-width: 768px) {
+  .app-body.sidebar-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  .home {
+    padding: 1.5rem 1rem;
+  }
+}

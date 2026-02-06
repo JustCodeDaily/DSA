@@ -2,10 +2,32 @@
   flex: 1;
   overflow-y: auto;
   background: white;
+  display: flex;
 }
 
 .main-content {
-  max-width: 1200px;
+  flex: 1;
+  max-width: 900px;
   margin: 0 auto;
   padding: 2rem;
+  width: 100%;
+}
+
+.main-component.has-right-sidebar .main-content {
+  margin: 0;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    padding: 1rem;
+  }
 }

@@ -42,7 +42,6 @@
   flex-direction: column;
 }
 
-/* Top-level nav item (like Introduction) */
 .nav-item {
   padding: 0.75rem 1.5rem;
   color: #e4e4e4;
@@ -64,7 +63,6 @@
   border-left-color: #4ade80;
 }
 
-/* Section with dropdown */
 .section {
   margin: 0;
 }
@@ -113,7 +111,6 @@
   color: #e4e4e4;
 }
 
-/* Sub-items (nested links) */
 .section-content {
   display: flex;
   flex-direction: column;
@@ -141,7 +138,6 @@
   border-left-color: #4ade80;
 }
 
-/* Scrollbar styling for dark theme */
 .sidebar::-webkit-scrollbar {
   width: 8px;
 }
@@ -157,4 +153,21 @@
 
 .sidebar::-webkit-scrollbar-thumb:hover {
   background: #4a4a4a;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .sidebar:not(.collapsed) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
+  }
 }
