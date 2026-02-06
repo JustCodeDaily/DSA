@@ -5,11 +5,25 @@ import MainComponent from './components/MainComponent';
 import RightSidebar from './components/RightSidebar';
 import ArrayMethodsBlog from './blogs/ArrayMethodsBlog';
 import ClosuresBlog from './blogs/ClosuresBlog';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  // Check if mobile on initial load
+  const isMobile = () => window.innerWidth <= 768;
+  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile());
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Auto-open sidebar on desktop, keep current state on mobile
+      if (window.innerWidth > 768) {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const arrayMethodsSections = [
     { id: 'introduction', title: 'Introduction' },
@@ -40,7 +54,7 @@ function App() {
         <Header onMenuToggle={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         <div className={`app-body ${isSidebarOpen ? 'sidebar-open' : ''}`}>
           {/* Backdrop for mobile */}
-          {isSidebarOpen && (
+          {isSidebarOpen && window.innerWidth <= 768 && (
             <div className="mobile-backdrop" onClick={closeSidebar} />
           )}
           
