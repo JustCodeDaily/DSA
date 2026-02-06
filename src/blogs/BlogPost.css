@@ -1,13 +1,15 @@
 .blog-post {
   max-width: 900px;
   margin: 0 auto;
+  line-height: 1.7;
+  color: #2c3e50;
 }
 
 .blog-post h1 {
-  color: #2c3e50;
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
-  line-height: 1.2;
+  color: #1a1a1a;
+  font-weight: 700;
 }
 
 .post-meta {
@@ -17,93 +19,110 @@
   font-style: italic;
 }
 
-.blog-post section {
-  margin-bottom: 2.5rem;
-  scroll-margin-top: 2rem;
-}
-
 .blog-post h2 {
-  color: #34495e;
-  font-size: 1.8rem;
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
   margin-bottom: 1rem;
+  color: #2c3e50;
+  font-weight: 600;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid #e9ecef;
 }
 
 .blog-post p {
-  color: #555;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
 }
 
 .blog-post code {
   background: #f8f9fa;
   padding: 0.2rem 0.4rem;
   border-radius: 3px;
-  font-family: 'Courier New', monospace;
-  color: #e83e8c;
+  font-family: 'Consolas', 'Monaco', monospace;
   font-size: 0.9em;
+  color: #e83e8c;
 }
 
 .blog-post ul {
-  list-style: none;
-  padding-left: 0;
+  margin: 1.5rem 0;
+  padding-left: 2rem;
 }
 
-.blog-post ul li {
-  padding: 0.6rem 0;
-  padding-left: 1.5rem;
-  position: relative;
-  color: #555;
+.blog-post li {
+  margin-bottom: 0.75rem;
   line-height: 1.6;
 }
 
-.blog-post ul li::before {
-  content: '•';
+.blog-post li strong {
   color: #667eea;
-  font-weight: bold;
-  position: absolute;
-  left: 0;
 }
 
-.blog-post ul li strong {
-  color: #2c3e50;
+.blog-post section {
+  margin-bottom: 3rem;
 }
 
-.blog-post section:last-child {
-  margin-bottom: 0;
+.sandpack-wrapper {
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Mobile Responsiveness */
+/* Sandpack custom styling */
+.sandpack-wrapper .sp-layout {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+}
+
+.sandpack-wrapper .sp-tabs {
+  background: #1e1e1e;
+  border-bottom: 1px solid #333;
+}
+
+.sandpack-wrapper .sp-tab-button {
+  color: #e4e4e4;
+  font-size: 0.9rem;
+}
+
+/* Dark theme support */
+[data-theme='dark'] .blog-post {
+  color: #e4e4e4;
+}
+
+[data-theme='dark'] .blog-post h1,
+[data-theme='dark'] .blog-post h2 {
+  color: #ffffff;
+}
+
+[data-theme='dark'] .blog-post h2 {
+  border-bottom-color: #3a3a3a;
+}
+
+[data-theme='dark'] .blog-post code {
+  background: #2a2a2a;
+  color: #ff79c6;
+}
+
+[data-theme='dark'] .post-meta {
+  color: #9ca3af;
+}
+
+/* Mobile responsiveness */
 @media (max-width: 768px) {
   .blog-post h1 {
     font-size: 2rem;
-  }
-  
-  .post-meta {
-    font-size: 1rem;
   }
   
   .blog-post h2 {
     font-size: 1.5rem;
   }
   
-  .blog-post p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .blog-post h1 {
-    font-size: 1.6rem;
-  }
-  
-  .blog-post h2 {
-    font-size: 1.3rem;
-  }
-  
-  .blog-post p {
+  .blog-post {
     font-size: 0.95rem;
+  }
+  
+  .sandpack-wrapper {
+    margin: 1.5rem -1rem;
+    border-radius: 0;
   }
 }

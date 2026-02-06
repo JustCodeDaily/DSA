@@ -1,4 +1,4 @@
-import { Sandpack } from '@codesandbox/sandpack-react';
+import { SandpackProvider, SandpackLayout, SandpackCodeEditor, SandpackPreview } from '@codesandbox/sandpack-react';
 import { levelUp } from '@codesandbox/sandpack-themes';
 import './BlogPost.css';
 
@@ -25,12 +25,12 @@ function ClosuresBlog() {
             a persistent private state.
           </p>
           
-          <Sandpack
-            template="vanilla"
-            theme={levelUp}
-            files={{
-              '/index.js': {
-                code: `// Basic closure
+          <div className="sandpack-wrapper">
+            <SandpackProvider
+              template="vanilla"
+              theme={levelUp}
+              files={{
+                '/index.js': `// Basic closure
 function createCounter() {
   let count = 0; // Private variable
   
@@ -52,18 +52,21 @@ console.log(counter2()); // 2
 
 // Original counter is unaffected
 console.log(counter1()); // 4`
-              }
-            }}
-            options={{
-              showNavigator: true,
-              showTabs: true,
-              showLineNumbers: true,
-              showInlineErrors: true,
-              editorHeight: 400,
-              showConsole: true,
-              showConsoleButton: true
-            }}
-          />
+              }}
+              options={{
+                showNavigator: false,
+                showTabs: true,
+                showLineNumbers: true,
+                showInlineErrors: true,
+                editorHeight: 400
+              }}
+            >
+              <SandpackLayout>
+                <SandpackCodeEditor />
+                <SandpackPreview showOpenInCodeSandbox={false} />
+              </SandpackLayout>
+            </SandpackProvider>
+          </div>
         </section>
 
         <section id="private-methods">
@@ -73,12 +76,12 @@ console.log(counter1()); // 4`
             that can't be accessed directly from outside.
           </p>
           
-          <Sandpack
-            template="vanilla"
-            theme={levelUp}
-            files={{
-              '/index.js': {
-                code: `function createBankAccount(initialBalance) {
+          <div className="sandpack-wrapper">
+            <SandpackProvider
+              template="vanilla"
+              theme={levelUp}
+              files={{
+                '/index.js': `function createBankAccount(initialBalance) {
   let balance = initialBalance; // Private
   
   // Public API
@@ -113,18 +116,21 @@ console.log(myAccount.getBalance());
 
 // Cannot access balance directly
 console.log('Direct access:', myAccount.balance); // undefined`
-              }
-            }}
-            options={{
-              showNavigator: true,
-              showTabs: true,
-              showLineNumbers: true,
-              showInlineErrors: true,
-              editorHeight: 450,
-              showConsole: true,
-              showConsoleButton: true
-            }}
-          />
+              }}
+              options={{
+                showNavigator: false,
+                showTabs: true,
+                showLineNumbers: true,
+                showInlineErrors: true,
+                editorHeight: 450
+              }}
+            >
+              <SandpackLayout>
+                <SandpackCodeEditor />
+                <SandpackPreview showOpenInCodeSandbox={false} />
+              </SandpackLayout>
+            </SandpackProvider>
+          </div>
         </section>
 
         <section id="common-pitfall">
@@ -134,12 +140,12 @@ console.log('Direct access:', myAccount.balance); // undefined`
             helps avoid unexpected behavior.
           </p>
           
-          <Sandpack
-            template="vanilla"
-            theme={levelUp}
-            files={{
-              '/index.js': {
-                code: `// Problem: Using var in loops
+          <div className="sandpack-wrapper">
+            <SandpackProvider
+              template="vanilla"
+              theme={levelUp}
+              files={{
+                '/index.js': `// Problem: Using var in loops
 console.log('--- Problem with var ---');
 for (var i = 0; i < 3; i++) {
   setTimeout(function() {
@@ -164,18 +170,21 @@ for (var k = 0; k < 3; k++) {
     }, 300);
   })(k);
 }`
-              }
-            }}
-            options={{
-              showNavigator: true,
-              showTabs: true,
-              showLineNumbers: true,
-              showInlineErrors: true,
-              editorHeight: 450,
-              showConsole: true,
-              showConsoleButton: true
-            }}
-          />
+              }}
+              options={{
+                showNavigator: false,
+                showTabs: true,
+                showLineNumbers: true,
+                showInlineErrors: true,
+                editorHeight: 450
+              }}
+            >
+              <SandpackLayout>
+                <SandpackCodeEditor />
+                <SandpackPreview showOpenInCodeSandbox={false} />
+              </SandpackLayout>
+            </SandpackProvider>
+          </div>
         </section>
 
         <section id="key-takeaways">

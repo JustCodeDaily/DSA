@@ -1,4 +1,4 @@
-import { Sandpack } from '@codesandbox/sandpack-react';
+import { SandpackProvider, SandpackLayout, SandpackCodeEditor, SandpackPreview } from '@codesandbox/sandpack-react';
 import { levelUp } from '@codesandbox/sandpack-themes';
 import './BlogPost.css';
 
@@ -26,12 +26,12 @@ function ArrayMethodsBlog() {
             the original array.
           </p>
           
-          <Sandpack
-            template="vanilla"
-            theme={levelUp}
-            files={{
-              '/index.js': {
-                code: `// Map: Transform each element
+          <div className="sandpack-wrapper">
+            <SandpackProvider
+              template="vanilla"
+              theme={levelUp}
+              files={{
+                '/index.js': `// Map: Transform each element
 const numbers = [1, 2, 3, 4, 5];
 const doubled = numbers.map(num => num * 2);
 console.log('Doubled:', doubled);
@@ -51,18 +51,21 @@ const result = numbers
   .reduce((acc, num) => acc + num, 0);
   
 console.log('Chained result:', result);`
-              }
-            }}
-            options={{
-              showNavigator: true,
-              showTabs: true,
-              showLineNumbers: true,
-              showInlineErrors: true,
-              editorHeight: 400,
-              showConsole: true,
-              showConsoleButton: true
-            }}
-          />
+              }}
+              options={{
+                showNavigator: false,
+                showTabs: true,
+                showLineNumbers: true,
+                showInlineErrors: true,
+                editorHeight: 400
+              }}
+            >
+              <SandpackLayout>
+                <SandpackCodeEditor />
+                <SandpackPreview showOpenInCodeSandbox={false} />
+              </SandpackLayout>
+            </SandpackProvider>
+          </div>
         </section>
 
         <section id="find-findindex">
@@ -72,12 +75,12 @@ console.log('Chained result:', result);`
             the first element that matches, while <code>findIndex()</code> returns its position.
           </p>
           
-          <Sandpack
-            template="vanilla"
-            theme={levelUp}
-            files={{
-              '/index.js': {
-                code: `const users = [
+          <div className="sandpack-wrapper">
+            <SandpackProvider
+              template="vanilla"
+              theme={levelUp}
+              files={{
+                '/index.js': `const users = [
   { id: 1, name: 'Alice', age: 28 },
   { id: 2, name: 'Bob', age: 35 },
   { id: 3, name: 'Charlie', age: 42 }
@@ -98,18 +101,21 @@ console.log('Has Alice:', hasAlice);
 // Check if all match condition
 const allAdults = users.every(u => u.age >= 18);
 console.log('All adults:', allAdults);`
-              }
-            }}
-            options={{
-              showNavigator: true,
-              showTabs: true,
-              showLineNumbers: true,
-              showInlineErrors: true,
-              editorHeight: 350,
-              showConsole: true,
-              showConsoleButton: true
-            }}
-          />
+              }}
+              options={{
+                showNavigator: false,
+                showTabs: true,
+                showLineNumbers: true,
+                showInlineErrors: true,
+                editorHeight: 350
+              }}
+            >
+              <SandpackLayout>
+                <SandpackCodeEditor />
+                <SandpackPreview showOpenInCodeSandbox={false} />
+              </SandpackLayout>
+            </SandpackProvider>
+          </div>
         </section>
 
         <section id="key-takeaways">
