@@ -9,7 +9,7 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const arrayMethodsSections = [
     { id: 'introduction', title: 'Introduction' },
@@ -26,18 +26,32 @@ function App() {
     { id: 'key-takeaways', title: 'Key Takeaways' }
   ];
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
   return (
     <Router>
       <div className="app">
-        <Header />
-        <div className={`app-body ${!isSidebarCollapsed ? 'sidebar-open' : ''}`}>
+        <Header onMenuToggle={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+        <div className={`app-body ${isSidebarOpen ? 'sidebar-open' : ''}`}>
+          {/* Backdrop for mobile */}
+          {isSidebarOpen && (
+            <div className="mobile-backdrop" onClick={closeSidebar} />
+          )}
+          
           <Sidebar 
-            isCollapsed={isSidebarCollapsed} 
-            onToggle={() => setIsSidebarCollapsed(!isSidebarCollapsed)} 
+            isCollapsed={!isSidebarOpen} 
+            onToggle={toggleSidebar}
+            onLinkClick={closeSidebar}
           />
           <Routes>
             <Route path="/" element={
-              <MainComponent isCollapsed={isSidebarCollapsed}>
+              <MainComponent isCollapsed={!isSidebarOpen}>
                 <div className="home">
                   <h1>Welcome to JS Blog</h1>
                   <p>Select a topic from the sidebar to get started.</p>
@@ -46,7 +60,7 @@ function App() {
             } />
             <Route path="/array-methods" element={
               <MainComponent 
-                isCollapsed={isSidebarCollapsed} 
+                isCollapsed={!isSidebarOpen} 
                 rightSidebar={<RightSidebar sections={arrayMethodsSections} />}
               >
                 <ArrayMethodsBlog />
@@ -54,14 +68,14 @@ function App() {
             } />
             <Route path="/closures" element={
               <MainComponent 
-                isCollapsed={isSidebarCollapsed}
+                isCollapsed={!isSidebarOpen}
                 rightSidebar={<RightSidebar sections={closuresSections} />}
               >
                 <ClosuresBlog />
               </MainComponent>
             } />
             <Route path="/installation" element={
-              <MainComponent isCollapsed={isSidebarCollapsed}>
+              <MainComponent isCollapsed={!isSidebarOpen}>
                 <div className="home">
                   <h1>Installation</h1>
                   <p>Coming soon...</p>
@@ -69,7 +83,7 @@ function App() {
               </MainComponent>
             } />
             <Route path="/configuration" element={
-              <MainComponent isCollapsed={isSidebarCollapsed}>
+              <MainComponent isCollapsed={!isSidebarOpen}>
                 <div className="home">
                   <h1>Configuration</h1>
                   <p>Coming soon...</p>
@@ -77,7 +91,7 @@ function App() {
               </MainComponent>
             } />
             <Route path="/playground" element={
-              <MainComponent isCollapsed={isSidebarCollapsed}>
+              <MainComponent isCollapsed={!isSidebarOpen}>
                 <div className="home">
                   <h1>Playground</h1>
                   <p>Coming soon...</p>
@@ -85,7 +99,7 @@ function App() {
               </MainComponent>
             } />
             <Route path="/typescript-support" element={
-              <MainComponent isCollapsed={isSidebarCollapsed}>
+              <MainComponent isCollapsed={!isSidebarOpen}>
                 <div className="home">
                   <h1>TypeScript Support</h1>
                   <p>Coming soon...</p>

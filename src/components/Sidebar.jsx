@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import './Sidebar.css';
 
-function Sidebar({ isCollapsed, onToggle }) {
+function Sidebar({ isCollapsed, onToggle, onLinkClick }) {
   const location = useLocation();
   const [expandedSections, setExpandedSections] = useState({
     gettingStarted: true,
@@ -19,16 +19,27 @@ function Sidebar({ isCollapsed, onToggle }) {
 
   const isActive = (path) => location.pathname === path;
 
+  const handleLinkClick = () => {
+    // Close sidebar on mobile when a link is clicked
+    if (window.innerWidth <= 768 && onLinkClick) {
+      onLinkClick();
+    }
+  };
+
   return (
     <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
-      <button className="toggle-btn" onClick={onToggle}>
+      <button className="toggle-btn desktop-only" onClick={onToggle}>
         {isCollapsed ? '→' : '←'}
       </button>
       
       {!isCollapsed && (
         <nav className="sidebar-nav">
           {/* Introduction - No dropdown */}
-          <Link to="/" className={`nav-item ${isActive('/') ? 'active' : ''}`}>
+          <Link 
+            to="/" 
+            className={`nav-item ${isActive('/') ? 'active' : ''}`}
+            onClick={handleLinkClick}
+          >
             Introduction
           </Link>
 
@@ -46,24 +57,28 @@ function Sidebar({ isCollapsed, onToggle }) {
                 <Link 
                   to="/installation" 
                   className={`sub-item ${isActive('/installation') ? 'active' : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Installation
                 </Link>
                 <Link 
                   to="/configuration" 
                   className={`sub-item ${isActive('/configuration') ? 'active' : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Configuration
                 </Link>
                 <Link 
                   to="/playground" 
                   className={`sub-item ${isActive('/playground') ? 'active' : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Playground
                 </Link>
                 <Link 
                   to="/typescript-support" 
                   className={`sub-item ${isActive('/typescript-support') ? 'active' : ''}`}
+                  onClick={handleLinkClick}
                 >
                   TypeScript Support
                 </Link>
@@ -85,6 +100,7 @@ function Sidebar({ isCollapsed, onToggle }) {
                 <Link 
                   to="/array-methods" 
                   className={`sub-item ${isActive('/array-methods') ? 'active' : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Array Methods
                 </Link>
@@ -106,6 +122,7 @@ function Sidebar({ isCollapsed, onToggle }) {
                 <Link 
                   to="/closures" 
                   className={`sub-item ${isActive('/closures') ? 'active' : ''}`}
+                  onClick={handleLinkClick}
                 >
                   Closures
                 </Link>

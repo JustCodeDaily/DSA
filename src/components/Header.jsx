@@ -2,7 +2,7 @@ import SimpleSearch from './SimpleSearch';
 import { useState, useEffect } from 'react';
 import './Header.css';
 
-function Header() {
+function Header({ onMenuToggle, isSidebarOpen }) {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -23,6 +23,25 @@ function Header() {
     <header className="header">
       <div className="header-container">
         <div className="header-left">
+          <button 
+            className="mobile-menu-button"
+            onClick={onMenuToggle}
+            aria-label="Toggle menu"
+          >
+            {isSidebarOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+            )}
+          </button>
+          
           <div className="logo">
             <span className="logo-icon">📚</span>
             <span className="logo-text">JS Blog</span>

@@ -11,6 +11,7 @@
   flex: 1;
   overflow: hidden;
   height: calc(100vh - 72px);
+  position: relative;
 }
 
 .home {
@@ -27,14 +28,18 @@
   font-size: 1.1rem;
 }
 
-/* Mobile overlay when sidebar is open */
+/* Mobile backdrop */
+.mobile-backdrop {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .app-body {
     height: calc(100vh - 60px);
   }
   
-  .app-body.sidebar-open::before {
-    content: '';
+  .mobile-backdrop {
+    display: block;
     position: fixed;
     top: 0;
     left: 0;

@@ -2,7 +2,7 @@
   width: 280px;
   background: #1e1e1e;
   color: #e4e4e4;
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, transform 0.3s ease;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -159,17 +159,31 @@
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .sidebar:not(.collapsed) {
+  .sidebar {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     z-index: 1000;
+    transform: translateX(-100%);
+    width: 280px;
+  }
+  
+  .sidebar:not(.collapsed) {
+    transform: translateX(0);
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
   }
   
   .sidebar.collapsed {
-    width: 0;
-    overflow: hidden;
+    transform: translateX(-100%);
+    width: 280px;
+  }
+  
+  .toggle-btn.desktop-only {
+    display: none;
+  }
+  
+  .sidebar-nav {
+    padding: 1rem 0 1rem;
   }
 }
