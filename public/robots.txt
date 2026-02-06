@@ -1,0 +1,8 @@
+# Algolia-Crawler-Verif: C998C46329780606
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://justcodedaily.vercel.app/sitemap.xml
