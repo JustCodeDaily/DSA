@@ -1,6 +1,5 @@
-import { DocSearch } from '@docsearch/react';
+import SimpleSearch from './SimpleSearch';
 import { useState, useEffect } from 'react';
-import '@docsearch/css';
 import './Header.css';
 
 function Header() {
@@ -32,12 +31,17 @@ function Header() {
 
         <div className="header-right">
           <div className="search-container">
-            <DocSearch
-              appId="YOUR_APP_ID"
-              indexName="YOUR_INDEX_NAME"
-              apiKey="YOUR_SEARCH_API_KEY"
-              placeholder="Search docs..."
-            />
+            <SimpleSearch />
+            {/* 
+              Replace SimpleSearch with DocSearch once you have Algolia credentials:
+              
+              <DocSearch
+                appId="YOUR_APP_ID"
+                indexName="YOUR_INDEX_NAME"
+                apiKey="YOUR_SEARCH_API_KEY"
+                placeholder="Search docs..."
+              />
+            */}
           </div>
 
           <a 
